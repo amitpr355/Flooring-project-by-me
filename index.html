@@ -184,6 +184,7 @@
           <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 60cm</div>
         </div>
       </div>
+
       <div class="tile-card" onclick="updateFloor('./floor8.jpeg')">
         <div class="tile-preview" style="background: url('./floor8.jpeg');"></div>
         <div>
@@ -191,7 +192,14 @@
           <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 60cm</div>
         </div>
       </div>
-
+      
+      <div class="tile-card" onclick="updateFloor('./floor11.webp')">
+        <div class="tile-preview" style="background: url('./floor11.webp');"></div>
+        <div>
+          <div style="font-weight: 600;">Modern Marble 6</div>
+          <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 30cm</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -207,6 +215,11 @@
           <option value="30x60">30x60</option>
           <option value="60x30">60x30</option>
           <option value="60x60">60x60</option>
+        </select>
+
+        <select id="pattern-change">
+          <option value="normal">Normal</option>
+          <option value="herringbone">Herringbone</option>
         </select>
       </div>
       <div class="btn">Compare</div>

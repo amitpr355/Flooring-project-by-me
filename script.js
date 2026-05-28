@@ -96,12 +96,11 @@ function applyTileSettings() {
     if (!currentTexture) return;
 
     const sizeValue = document.getElementById("size-change").value;
+    const pattern = document.getElementById("pattern-change").value;
 
-    // Default repeat values
     let repeatX = 20;
     let repeatY = 20;
 
-    // Adjust according to selected tile size
     switch (sizeValue) {
 
         case "30x30":
@@ -125,13 +124,92 @@ function applyTileSettings() {
             break;
     }
 
-    currentTexture.repeat.set(repeatX, repeatY);
+    // NORMAL PATTERN
+    if (pattern === "normal") {
 
-    // Rotation
-    currentTexture.center.set(0.5, 0.5);
-    currentTexture.rotation = THREE.MathUtils.degToRad(rotationAngle);
+        currentTexture.wrapS = currentTexture.wrapT = THREE.RepeatWrapping;
 
-    currentTexture.needsUpdate = true;
+        currentTexture.repeat.set(repeatX, repeatY);
+
+        currentTexture.center.set(0.5, 0.5);
+        currentTexture.rotation = THREE.MathUtils.degToRad(rotationAngle);
+
+        floorMaterial.map = currentTexture;
+    }
+
+    else if (pattern === "herringbone") {
+
+        const canvas = document.createElement("canvas");
+        canvas.width = 1200;
+        canvas.height = 1200;
+
+        const ctx = canvas.getContext("2d");
+
+        const img = currentTexture.image;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const tileLength = 140;
+        const tileWidth = 70;
+
+        for (let y = -200; y < canvas.height + 200; y += tileWidth) {
+
+            for (let x = -200; x < canvas.width + 200; x += tileLength) {
+
+                // Vertical Tile
+                ctx.save();
+
+                ctx.translate(x, y);
+
+                ctx.rotate(Math.PI / 4);
+
+                ctx.drawImage(
+                    img,
+                    -tileWidth / 2,
+                    -tileLength / 2,
+                    tileWidth,
+                    tileLength
+                );
+
+                ctx.restore();
+
+                // Horizontal Tile
+                ctx.save();
+
+                ctx.translate(x + tileWidth, y + tileWidth);
+
+                ctx.rotate(-Math.PI / 4);
+
+                ctx.drawImage(
+                    img,
+                    -tileWidth / 2,
+                    -tileLength / 2,
+                    tileWidth,
+                    tileLength
+                );
+
+                ctx.restore();
+            }
+        }
+        const herringboneTexture = new THREE.CanvasTexture(canvas);
+
+        herringboneTexture.wrapS = THREE.RepeatWrapping;
+        herringboneTexture.wrapT = THREE.RepeatWrapping;
+
+        herringboneTexture.repeat.set(
+            repeatX / 5,
+            repeatY / 5
+        );
+
+        herringboneTexture.center.set(0.5, 0.5);
+
+        herringboneTexture.rotation =
+            THREE.MathUtils.degToRad(rotationAngle);
+
+        floorMaterial.map = herringboneTexture;
+    }
+
+    floorMaterial.needsUpdate = true;
 }
 
 // Load initial texture
@@ -149,4 +227,8 @@ window.addEventListener('resize', () => {
     camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
+});
+
+document.getElementById("pattern-change").addEventListener("change", () => {
+    applyTileSettings();
 });

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Floor Visualizer Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      overflow: hidden;
+      background: #f4f4f4;
+    }
+
+    /* Sidebar UI */
+    #sidebar {
+      width: 320px;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .header {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      color: #e63946;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    .product-section {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .category-title {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .tile-card {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tile-card:hover {
+      border-color: #004d40;
+      background: #f9f9f9;
+    }
+
+    .tile-preview {
+      width: 50px;
+      height: 50px;
+      border-radius: 4px;
+      margin-right: 12px;
+      background-size: cover;
+    }
+
+    /* 3D Viewport */
+    #viewer-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* THREE canvas */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    /* Room image ABOVE canvas */
+    #room-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* UI above all */
+    .overlay-controls {
+      z-index: 10;
+    }
+
+    .overlay-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border: 1px solid #ddd;
+    }
+
+    .size-change {
+      border: none;
+      box-shadow: none;
+    }
+  </style>
+
+  <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+  <div id="sidebar">
+    <div class="header">
+      <div class="logo">WONDERFLOOR</div>
+    </div>
+    <div class="product-section">
+      <div class="category-title">Durofloor</div>
+
+      <div class="tile-card" onclick="updateFloor('./wood.jpg')">
+        <div class="tile-preview" style="background-image: url('./wood.jpg');"></div>
+        <div>
+          <div style="font-weight: 600;">GDP-550406</div>
+          <div style="font-size: 0.75rem; color: #888;">Size: 30cm x 30cm</div>
+        </div>
+      </div>
+
+      <div class="tile-card" onclick="updateFloor('./wood2.jpeg')">
+        <div class="tile-preview" style="background: url('./wood2.jpeg');"></div>
+        <div>
+          <div style="font-weight: 600;">Modern Marble</div>
+          <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 60cm</div>
+        </div>
+      </div>
+
+      <div class="tile-card" onclick="updateFloor('./floor3.jpeg')">
+        <div class="tile-preview" style="background: url('./floor3.jpeg');"></div>
+        <div>
+          <div style="font-weight: 600;">Modern Marble 2</div>
+          <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 60cm</div>
+        </div>
+      </div>
+      <div class="tile-card" onclick="updateFloor('./floor4.jpeg')">
+        <div class="tile-preview" style="background: url('./floor4.jpeg');"></div>
+        <div>
+          <div style="font-weight: 600;">Modern Marble 3</div>
+          <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 60cm</div>
+        </div>
+      </div>
+      <div class="tile-card" onclick="updateFloor('./floor5.jpeg')">
+        <div class="tile-preview" style="background: url('./floor5.jpeg');"></div>
+        <div>
+          <div style="font-weight: 600;">Modern Marble 4</div>
+          <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 60cm</div>
+        </div>
+      </div>
+      <div class="tile-card" onclick="updateFloor('./floor8.jpeg')">
+        <div class="tile-preview" style="background: url('./floor8.jpeg');"></div>
+        <div>
+          <div style="font-weight: 600;">Modern Marble 5</div>
+          <div style="font-size: 0.75rem; color: #888;">Size: 60cm x 60cm</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="viewer-container" style="background: url(./floor_image.png);">
+    <img id="room-image" src="./floor_image.png" />
+    <div class="overlay-controls">
+      <div class="btn" id="rotate-btn">
+        Rotate <i class="fa-solid fa-rotate"></i>
+      </div>
+      <div class="btn">
+        <select class="size-change" name="Change Size" id="size-change">
+          <option value="30x30">30x30</option>
+          <option value="30x60">30x60</option>
+          <option value="60x30">60x30</option>
+          <option value="60x60">60x60</option>
+        </select>
+      </div>
+      <div class="btn">Compare</div>
+      <div class="btn">Download</div>
+      <div class="btn" style="background: #004d40; color: white;">Contact Us</div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>

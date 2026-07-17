@@ -1,0 +1,195 @@
+{
+    "delayTime": 17084,
+    "executionTime": 18287,
+    "id": "sync-7501f3b9-7c8f-436f-bffb-41737f60f1ca-e1",
+    "output": {
+        "prediction": {
+            "camera": {
+                "camera_model": "pinhole",
+                "confidence": 0.6671137074063501,
+                "cx": 500,
+                "cy": 299.9999694824219,
+                "fx": 2262.62744140625,
+                "fy": 2262.627685546875,
+                "gravity": [
+                    -0.008130325935781002,
+                    -0.9997610449790955,
+                    -0.02029430866241455
+                ],
+                "height_meters": 1.277487151729679,
+                "horizontal_fov_degrees": 24.922151337893435,
+                "intrinsic_matrix": [
+                    [
+                        2262.62744140625,
+                        0,
+                        500
+                    ],
+                    [
+                        0,
+                        2262.627685546875,
+                        299.9999694824219
+                    ],
+                    [
+                        0,
+                        0,
+                        1
+                    ]
+                ],
+                "pitch_degrees": -1.1628580623280653,
+                "roll_degrees": 0.4658878436168044,
+                "uncertainty": {
+                    "focal_pixels": 1425.1751708984375,
+                    "pitch_degrees": 2.6629938540791223,
+                    "roll_degrees": 0.5475927009026126,
+                    "vertical_fov_degrees": 13.300328333022865
+                },
+                "vertical_fov_degrees": 15.10549610423846
+            },
+            "confidence": {
+                "camera_calibration": 0.6671137074063501,
+                "camera_height": 0.8945831719192071,
+                "depth": 0.971642017364502,
+                "dimensions": 0.9879827938870686,
+                "floor_plane": 0.9699569847176712,
+                "overall": 0.8732873274102871,
+                "segmentation": 0.748445289166924
+            },
+            "floor": {
+                "median_scene_depth_meters": 15.840433120727539,
+                "plane": {
+                    "confidence": 0.9699569847176712,
+                    "distance": 1.277487151729679,
+                    "gravity_alignment": 0.9996438639829116,
+                    "inlier_ratio": 0.9997833333333334,
+                    "median_residual_meters": 0.004479518211836675,
+                    "normal": [
+                        0.0014124074452026584,
+                        -0.9989766870878348,
+                        -0.045206014646537514
+                    ]
+                },
+                "visible_area_ratio": 0.270065,
+                "visible_dimensions_meters": {
+                    "confidence": 0.9879827938870686,
+                    "depth_meters": 16.68734588655724,
+                    "measurement_type": "visible_floor_extent",
+                    "projected_area_square_meters": 31.34858721151275,
+                    "valid_polygon_vertex_ratio": 1,
+                    "width_meters": 6.777607997371945
+                },
+                "visible_polygon_pixels": [
+                    [
+                        999,
+                        418
+                    ],
+                    [
+                        609,
+                        319
+                    ],
+                    [
+                        594,
+                        345
+                    ],
+                    [
+                        873,
+                        434
+                    ],
+                    [
+                        351,
+                        514
+                    ],
+                    [
+                        318,
+                        489
+                    ],
+                    [
+                        266,
+                        517
+                    ],
+                    [
+                        191,
+                        479
+                    ],
+                    [
+                        142,
+                        331
+                    ],
+                    [
+                        76,
+                        366
+                    ],
+                    [
+                        0,
+                        362
+                    ],
+                    [
+                        0,
+                        599
+                    ],
+                    [
+                        999,
+                        599
+                    ]
+                ]
+            },
+            "images": {
+                "room_without_floor_png": "<base64 image code>"
+            },
+            "input": {
+                "height": 600,
+                "width": 1000
+            },
+            "scene": [
+                {
+                    "confidence": 0.42455872893333435,
+                    "scene": "living_room"
+                },
+                {
+                    "confidence": 0.13056986033916473,
+                    "scene": "artists_loft"
+                },
+                {
+                    "confidence": 0.11824961006641388,
+                    "scene": "bow_window/indoor"
+                },
+                {
+                    "confidence": 0.1164858415722847,
+                    "scene": "television_room"
+                },
+                {
+                    "confidence": 0.04841028153896332,
+                    "scene": "entrance_hall"
+                }
+            ],
+            "selected_detection": {
+                "bbox_xyxy": {
+                    "x1": 4,
+                    "x2": 996,
+                    "y1": 308,
+                    "y2": 596
+                },
+                "detection_confidence": 0.3237930238246918,
+                "label": "indoor floor room",
+                "mask_quality": {
+                    "area_plausibility_score": 1,
+                    "area_ratio": 0.26718166666666665,
+                    "bottom_contact_score": 1,
+                    "detection_confidence": 0.3237930238246918,
+                    "final_score": 0.748445289166924,
+                    "fragmentation_score": 0.08333333333333333,
+                    "largest_component_ratio": 0.9996881023523321,
+                    "lower_half_score": 1,
+                    "sam_score": 0.98828125
+                },
+                "sam_score": 0.98828125
+            },
+            "warnings": [
+                "dimensions_are_single_image_estimates",
+                "complete_room_dimensions_not_returned"
+            ]
+        },
+        "success": true
+    },
+    "status": "COMPLETED",
+    "workerId": "006ilkr2jro6by"
+}

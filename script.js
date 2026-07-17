@@ -41,29 +41,8 @@ scene.add(floorMesh);
 
 camera.position.set(0, 0, 10);
 
-// 5. Apply the Mask (floor_image.png)
-// This tells Three.js where NOT to draw the floor (the walls/tables)
-// loader.load('./image-with-transparent-floor.png', (mask) => {
-//     floorMaterial.alphaMap = mask;
-//     floorMaterial.needsUpdate = true;
-// });
-// floorMaterial.polygonOffset = true;  
-// floorMaterial.polygonOffsetFactor = 1;
-// floorMaterial.polygonOffsetUnits = 1;
-
 let currentTexture = null;
 let rotationAngle = 0;
-
-// 6. Function to update texture from UI
-// window.updateFloor = (imageUrl) => {
-//     loader.load(imageUrl, (tex) => {
-//         tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-//         tex.repeat.set(64, 64); // Controls tile size
-//         tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-//         floorMaterial.map = tex;
-//         floorMaterial.needsUpdate = true;
-//     });
-// };
 
 window.updateFloor = (imageUrl) => {
     loader.load(imageUrl, (tex) => {
@@ -149,36 +128,27 @@ function applyTileSettings() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        const tileLength = 140;
-        const tileWidth = 70;
+        const tileLength = 160;
+        const tileWidth = 80;
 
-        for (let y = -200; y < canvas.height + 200; y += tileWidth) {
+        for (let row = -10; row < 20; row++) {
 
-            for (let x = -200; x < canvas.width + 200; x += tileLength) {
+            for (let col = -10; col < 20; col++) {
 
-                // Vertical Tile
+                const baseX = col * tileLength;
+                const baseY = row * tileLength;
+
+                const isEven = (row + col) % 2 === 0;
+
                 ctx.save();
 
-                ctx.translate(x, y);
+                ctx.translate(baseX, baseY);
 
-                ctx.rotate(Math.PI / 4);
-
-                ctx.drawImage(
-                    img,
-                    -tileWidth / 2,
-                    -tileLength / 2,
-                    tileWidth,
-                    tileLength
+                ctx.rotate(
+                    isEven
+                        ? Math.PI / 4
+                        : -Math.PI / 4
                 );
-
-                ctx.restore();
-
-                // Horizontal Tile
-                ctx.save();
-
-                ctx.translate(x + tileWidth, y + tileWidth);
-
-                ctx.rotate(-Math.PI / 4);
 
                 ctx.drawImage(
                     img,
@@ -213,7 +183,7 @@ function applyTileSettings() {
 }
 
 // Load initial texture
-// updateFloor('./wood.jpg');
+updateFloor('./wood.jpg');
 
 // 7. Animation Loop
 function animate() {
